@@ -16,24 +16,12 @@ function SearchAppBar() {
                         <Nav className="me-auto">
 
                             <li>
-                                <Link to="/" className="nav-itms">Signin</Link>
+                                <Link to="/signup" className="nav-itms">Signup</Link>
                             </li>
 
                             <li>
-                                <Link to="/login" className="nav-itms">Login</Link>
+                                <Link to="/" className="nav-itms">Login</Link>
                             </li>
-
-                            <li>
-                                <Link to="/" className="nav-itms">Profile</Link>
-                            </li>
-
-                            {/* <li>
-                                <Link to="/dashboard" className="nav-itms">Dashboard</Link>
-                            </li> */}
-
-                            {/* <li>
-                                <Link to="/logout" className="nav-itms">Logout</Link>
-                            </li> */}
 
                         </Nav>
                     </Navbar.Collapse>

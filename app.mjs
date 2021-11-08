@@ -1,5 +1,3 @@
-
-// import cookieParser from "cookie-parser"
 import express from 'express'
 import mongoose from "mongoose"
 import cors from "cors"
@@ -32,35 +30,83 @@ app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, 'web-frontend/build')))
 
 app.get("/", (req, res, next) => {
-    res.sendFile(path.join(__dirname, "./web/build/index.html"))
+    res.sendFile(path.join(__dirname, "./web-frontend/build/index.html"))
 })
 
 
-mongoose.connect("mongodb+srv://ahsan:form123@users.rpo2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+// mongoose.connect("mongodb+srv://ahsan:form123@users.rpo2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+
+
+mongoose.connect("mongodb+srv://userpost:1234@userpost.amdns.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 const UserSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    phone: Number
+    phone: Number,
+    created: { type: Date, default: Date.now },
 
 })
-
-
 
 
 
 const User = mongoose.model('User', UserSchema);
 
 const Post = mongoose.model('Post', {
-    name: String,
-    caption: String,
-    email: String
+    name:String,
+    post: String,
+    email: String,
+    userId: String,
+    created: { type: Date, default: Date.now },
+
 });
 
 
 app.get('/api/v1/signup', (req, res) => {
     res.send(users)
+})
+
+app.post('/api/v1/signup', (req, res) => {
+
+    if (!req.body.email || !req.body.password || !req.body.name) {
+        console.log("required field missing");
+        res.status(403).send("required field missing");
+        return;
+    }
+
+    else {
+        User.findOne({ email: req.body.email }, (err, user) => {
+
+            if (user) {
+                res.send("user already exist")
+            }
+            else {
+                User.findOne({ email: req.body.email }, (err, user) => {
+                    if (user) {
+                        res.send("user already exist");
+                    } else {
+                        console.log(req.body)
+
+                        stringToHash(req.body.password).then(passwordHash => {
+                            console.log("hash: ", passwordHash);
+
+                            let newUser = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                password: passwordHash,
+                            })
+                            newUser.save(() => {
+                                console.log("data saved")
+                                res.send('signup success')
+                            })
+                        })
+                    }
+                })
+
+            }
+        })
+    }
 })
 
 app.post('/api/v1/login', (req, res) => {
@@ -117,47 +163,7 @@ app.post('/api/v1/login', (req, res) => {
     })
 })
 
-app.post('/api/v1/signup', (req, res) => {
 
-    if (!req.body.email || !req.body.password || !req.body.name) {
-        console.log("required field missing");
-        res.status(403).send("required field missing");
-        return;
-    } 
-    
-    else{
-        User.findOne({ email: req.body.email }, (err, user) => {
-
-            if (user) {
-                res.send("user already exist")
-            }
-            else {
-                User.findOne({ email: req.body.email }, (err, user) => {
-                    if (user) {
-                        res.send("user already exist");
-                    } else {
-                        console.log(req.body)
-        
-                        stringToHash(req.body.password).then(passwordHash => {
-                            console.log("hash: ", passwordHash);
-        
-                            let newUser = new User({
-                                name: req.body.name,
-                                email: req.body.email,
-                                password: passwordHash,
-                            })
-                            newUser.save(() => {
-                                console.log("data saved")
-                                res.send('signup success')
-                            })
-                        })
-                    }
-                })
-
-            }
-        })
-    }
-})
 
 
 app.use((req, res, next) => {
@@ -214,8 +220,8 @@ app.post('/api/v1/profile', (req, res) => {
         console.log("required field missing");
         res.status(403).send("required field missing");
         return;
-    } 
-    
+    }
+
     else {
 
         let newPost = new Post({
@@ -234,6 +240,28 @@ app.post('/api/v1/profile', (req, res) => {
     }
 
 })
+
+app.post("/api/v1/post", (req, res) => {
+    const newPost = new Post({
+        name: req.body._decoded.name,
+        post: req.body.post,
+        userId: req.body._decoded._id,
+        email: req.body._decoded.email
+    });
+    newPost.save().then(() => {
+        console.log("Post created");
+        res.send("Post created");
+    });
+})
+
+
+app.get("/api/v1/post", (req, res) => {
+
+
+    Post.find()
+        .then(admdata => res.json(admdata))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 
