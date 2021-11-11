@@ -5,10 +5,12 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
+import Postcard from './Postcard';
 import axios from 'axios';
 import { baseurl } from '../../core';
 import { GlobalContext } from '../../context/Context';
 import { useContext } from "react";
+import moment from 'moment';
 
 
 
@@ -34,14 +36,17 @@ function Dashboard() {
 
     const submit = (values, { resetForm }) => {
         console.log("values", values)
+        let m=moment().format('MMMM Do YYYY')
+        console.log(m)
         axios.post(`${baseurl}/api/v1/post`,
             {
                 post: values.post,
+                time: m
             }, {
             withCredentials: true
         })
             .then(res => {
-                console.log("postdata",res.data);
+                console.log("postdata", res.data);
                 resetForm({});
                 setToggleGetUser(!toggleGetUser)
 
@@ -50,9 +55,9 @@ function Dashboard() {
 
     useEffect(() => {
         axios.get(`${baseurl}/api/v1/post`,
-        {
-            withCredentials: true
-        })
+            {
+                withCredentials: true
+            })
             .then(response => {
                 console.log(response.data)
                 setPosts(response.data)
@@ -109,15 +114,22 @@ function Dashboard() {
 
                 <div id="posts">
                     {posts?.map(posts => (
-                        <div id="cont">
-                            <h3 id="post-name">{posts?.name}</h3>
-                            <hr />
-                            <p id="post-item">{posts?.post}</p>
-                            <p className="buttonbox">
-                                <button className="btn">Like</button>
-                                <button className="btn">Comment</button>
-                                <button className="btn">Share</button>
-                            </p>
+                        // <div id="cont">
+                        //     <h3 id="post-name">{posts?.name}</h3>
+                        //     <hr />
+                        //     <p id="post-item">{posts?.post}</p>
+                        //     <p className="buttonbox">
+                        //         <button className="btn">Like</button>
+                        //         <button className="btn">Comment</button>
+                        //         <button className="btn">Share</button>
+                        //     </p>
+                        // </div>
+                        <div className="postcard">
+                            <Postcard 
+                                name={posts?.name}
+                                time={posts?.time}
+                                post={posts?.post}
+                            />
                         </div>
                     )
 

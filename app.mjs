@@ -58,6 +58,7 @@ const Post = mongoose.model('Post', {
     post: String,
     email: String,
     userId: String,
+    time: String,
     created: { type: Date, default: Date.now },
 
 });
@@ -95,6 +96,7 @@ app.post('/api/v1/signup', (req, res) => {
                                 name: req.body.name,
                                 email: req.body.email,
                                 password: passwordHash,
+                                phone: req.body.phone,
                             })
                             newUser.save(() => {
                                 console.log("data saved")
@@ -110,8 +112,6 @@ app.post('/api/v1/signup', (req, res) => {
 })
 
 app.post('/api/v1/login', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
 
 
     if (!req.body.email || !req.body.password) {
@@ -206,6 +206,7 @@ app.get('/api/v1/profile', (req, res) => {
                 res.send({
                     name: user.name,
                     email: user.email,
+                    phone: user.phone
                 });
             } else {
                 res.send("user not found");
@@ -214,39 +215,15 @@ app.get('/api/v1/profile', (req, res) => {
     })
 })
 
-app.post('/api/v1/profile', (req, res) => {
 
-    if (!req.body.name || !req.body.caption) {
-        console.log("required field missing");
-        res.status(403).send("required field missing");
-        return;
-    }
-
-    else {
-
-        let newPost = new Post({
-            name: req.body.name,
-            caption: req.body.caption,
-            email: req.body.email
-        });
-
-
-        newPost.save(() => {
-            console.log("Data Saved in MondoDB")
-            res.send('Data Saved in MondoDB')
-        }
-        )
-
-    }
-
-})
 
 app.post("/api/v1/post", (req, res) => {
     const newPost = new Post({
         name: req.body._decoded.name,
         post: req.body.post,
         userId: req.body._decoded._id,
-        email: req.body._decoded.email
+        email: req.body._decoded.email,
+        time: req.body.time
     });
     newPost.save().then(() => {
         console.log("Post created");
@@ -256,8 +233,6 @@ app.post("/api/v1/post", (req, res) => {
 
 
 app.get("/api/v1/post", (req, res) => {
-
-
     Post.find()
         .then(admdata => res.json(admdata))
         .catch(err => res.status(400).json('Error: ' + err));

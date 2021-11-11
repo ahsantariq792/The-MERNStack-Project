@@ -132,6 +132,7 @@ hr{
 #post-name{
   margin-top: 2% !important;
   text-transform: uppercase;
+  text-align: left;
 }
 
 #post-item{
@@ -206,14 +207,14 @@ Link{
 
 .profile{
   text-align: center;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 #profileheader{
   color: black;
   text-align: center;
   text-decoration: red 5px underline;
-  margin-bottom: 5%;
+  margin-bottom: 4%;
 }
 
 #personaldtl{
@@ -222,10 +223,40 @@ Link{
   padding: 2px;
 }
 
-.info{
-  padding: 4%;
+#profilepic{
+  height: 200px;
+  margin-bottom: 2%;
 }
 
+
+/* post card css */
+
+.info{
+  padding: 2%;
+}
+
+.cardfooter{
+    margin-top: 2% ;
+    background-color: rgb(216, 208, 208);
+    width: 100%;
+}
+
+.info h4 span{
+  text-transform: uppercase;
+}
+
+
+.postcard{
+  position: relative;
+  left: 10%;
+  top: 5%;
+  text-align: center;
+  padding: 1%;
+}
+
+
+
+/* splashscreen css */
 
 .splashscreen{
   width: 100%;
@@ -234,3 +265,108 @@ Link{
   text-align: center;
   padding: 20%;
 }
+
+
+
+
+
+
+
+
+
+/* 
+
+.text{
+  z-index: 1;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+  font-size: 40px;
+  font-weight: 170;
+  display: flex;
+  position: relative;
+  top: 40%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  letter-spacing: 5px;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, rgba(255, 255, 255, 0.2));
+}
+
+.text span:nth-child(1){
+  color: #4285F4;
+  animation: animText 1s ease-in-out infinite;
+}
+
+.text span:nth-child(2){
+  color: #EA4335;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.text span:nth-child(3){
+  color: #FBBC05;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+.text span:nth-child(4){
+  color: #34A853;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+.text span:nth-child(5){
+  color: #34A853;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+
+.text span:nth-child(6){
+  color: #34A853;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+
+.text span:nth-child(7){
+  color: yellow;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+.text span:nth-child(8){
+  color: blue;
+  animation: animText 1s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+
+@keyframes animText{
+  0%{
+    font-weight: 200;
+  }
+  50%{
+    font-weight: 900;
+  }
+  100%{
+    font-weight: 200;
+  }
+}
+
+.text span:nth-child(5){
+  color: #4285F4;
+  font-weight: 900;
+  animation: animMark 1s ease-in-out infinite;
+}
+
+@keyframes animMark{
+  0%{
+    transform: rotate(30deg);
+  }
+  50%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(30deg);
+  }
+} */

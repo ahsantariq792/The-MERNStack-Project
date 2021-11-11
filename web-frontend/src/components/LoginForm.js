@@ -48,17 +48,9 @@ function Loginform() {
       .then(res => {
         console.log(res.data);
 
-        // localStorage.setItem('name',res.data.name)
-        // localStorage.setItem('email',res.data.email)
-        // localStorage.setItem('phone',res.data.phone)
-
         alert('User Logined')
 
         if (res.data.email) {
-          // setTimeout(() => {
-          // history.push("/profile")
-            
-          // }, 2000);
           dispatch({
             type: "USER_LOGIN",
             payload: {
@@ -128,7 +120,7 @@ function Loginform() {
 
 
             <Button id="btn" variant="contained" color="success" type="submit">
-              Submit
+              Login
             </Button>
           </form>
         </div>
