@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { baseurl } from '../core';
-import { GlobalContext } from '../context/Context';
-import { useContext } from "react";
+// import { GlobalContext } from '../context/Context';
+// import { useContext } from "react";
 import Profileimage from '../images/profile.jpg'
 import './../App.css'
 
 function Profile() {
 
-    let { state, dispatch } = useContext(GlobalContext);
+    // let { state, dispatch } = useContext(GlobalContext);
 
     const [profile, setProfile] = useState({})
 
@@ -41,7 +41,7 @@ function Profile() {
 
 
                 <h1 id="profileheader">My Profile</h1>
-                <img id="profilepic" src={Profileimage} />
+                <img id="profilepic" src={Profileimage} alt="profilepic" />
                 <h2 id="personaldtl">Personal Details</h2>
 
                 <div className="info">

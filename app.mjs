@@ -2,6 +2,9 @@ import express from 'express'
 import mongoose from "mongoose"
 import cors from "cors"
 import path from "path";
+import { createServer } from "http";
+import { Server } from "socket.io";
+
 const __dirname = path.resolve();
 
 import {
@@ -34,9 +37,6 @@ app.get("/", (req, res, next) => {
 })
 
 
-// mongoose.connect("mongodb+srv://ahsan:form123@users.rpo2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-
-
 
 mongoose.connect("mongodb+srv://userpost:1234@userpost.amdns.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
@@ -54,7 +54,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 const Post = mongoose.model('Post', {
-    name:String,
+    name: String,
     post: String,
     email: String,
     userId: String,
@@ -227,18 +227,41 @@ app.post("/api/v1/post", (req, res) => {
     });
     newPost.save().then(() => {
         console.log("Post created");
+
+        io.emit("POSTS", {
+            post: req.body.post,
+            userId: req.body._decoded._id,
+            time: req.body.time,
+            name: req.body._decoded.name,
+            email: req.body._decoded.email
+        });
+
+
         res.send("Post created");
     });
 })
 
 
 app.get("/api/v1/post", (req, res) => {
+    const page = Number(req.query.page);
+    
     Post.find()
+        .sort({ created: "desc" })
+        .skip(page)
+        .limit(2)
         .then(admdata => res.json(admdata))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
+app.get("/api/v1/mypost", (req, res) => {
+    Post
+        .find({ userId: req.body._decoded?._id })
+        .sort({ created: "desc" })
+        .exec((err, data) => {
+            res.send(data);
+        });
+});
 
 
 
@@ -251,6 +274,38 @@ app.get("/**", (req, res, next) => {
 })
 
 
-app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`)
+// app.listen(PORT, () => {
+//     console.log(`Example app listening at http://localhost:${PORT}`)
+// })
+
+const server = createServer(app);
+
+const io = new Server(server, { cors: { origin: "*", methods: "*", } });
+
+io.on("connection", (socket) => {
+    console.log("New client connected with id: ", socket.id);
+
+    // to emit data to a certain client
+    socket.emit("topic 1", "some data")
+
+    // collecting connected users in a array
+    // connectedUsers.push(socket)
+
+    socket.on("disconnect", (message) => {
+        console.log("Client disconnected with id: ", message);
+    });
+});
+
+setInterval(() => {
+
+    // to emit data to all connected client
+    // first param is topic name and second is json data
+    io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
+    console.log("emiting data to all client");
+
+}, 2000)
+
+
+server.listen(PORT, function () {
+    console.log("server is running on", PORT);
 })

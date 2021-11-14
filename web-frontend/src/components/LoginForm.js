@@ -1,5 +1,5 @@
 import '../App.css';
-import {useHistory} from "react-router-dom";
+// import {useHistory} from "react-router-dom";
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -29,7 +29,7 @@ const validationSchema = yup.object({
 
 function Loginform() {
 
-  let history = useHistory();
+  // let history = useHistory();
   let { state, dispatch } = useContext(GlobalContext);
 
 
@@ -47,9 +47,7 @@ function Loginform() {
       })
       .then(res => {
         console.log(res.data);
-
         alert('User Logined')
-
         if (res.data.email) {
           dispatch({
             type: "USER_LOGIN",

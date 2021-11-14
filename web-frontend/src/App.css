@@ -61,7 +61,7 @@ form{
   border: 2px solid inherit;
   border-radius: 30px;
   text-align: center ;
-  width: 60%;
+  width: 68%;
   background-color: white !important;
 }
 
@@ -69,10 +69,11 @@ form{
   margin: 10% auto;
   text-align: center;
   width: 100%;
+  overflow-x: hidden;
   padding: 20px;
   text-align: center;
   border-radius: 20px;
-  margin-top: 5%;
+  margin-top: 5%; 
 
 }
 
@@ -248,12 +249,26 @@ Link{
 
 .postcard{
   position: relative;
-  left: 10%;
+  left: 6%;
   top: 5%;
   text-align: center;
   padding: 1%;
 }
 
+#loadmorebtn{
+  background-color: rgb(12, 177, 48);
+  color: white;
+  font-size: 16px;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+#nopost{
+  color: grey;
+  margin-left: 5%;
+
+
+}
 
 
 /* splashscreen css */
@@ -268,7 +283,17 @@ Link{
 
 
 
+@media screen and (max-width: 480px) {
+  #post-form{
+    width: 80%;
+    padding: 2px;
 
+  }
+  .post-main{
+    left: 10%;
+    margin-bottom: 5%;
+  }
+}
 
 
 

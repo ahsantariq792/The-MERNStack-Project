@@ -1,6 +1,6 @@
 import '../../App.css';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import { baseurl } from '../../core';
 import { GlobalContext } from '../../context/Context';
 import { useContext } from "react";
 import moment from 'moment';
-
+import io from 'socket.io-client';
 
 
 
@@ -29,14 +29,14 @@ const validationSchema = yup.object({
 
 function Dashboard() {
 
-    const [toggleGetUser, setToggleGetUser] = useState(false);
     let { state, dispatch } = useContext(GlobalContext);
     const [posts, setPosts] = useState([])
-    let history = useHistory();
+    // let history = useHistory();
+    const [isMore, setIsMore] = useState(true)
 
     const submit = (values, { resetForm }) => {
         console.log("values", values)
-        let m=moment().format('MMMM Do YYYY')
+        let m = moment().format('MMMM Do YYYY')
         console.log(m)
         axios.post(`${baseurl}/api/v1/post`,
             {
@@ -48,13 +48,12 @@ function Dashboard() {
             .then(res => {
                 console.log("postdata", res.data);
                 resetForm({});
-                setToggleGetUser(!toggleGetUser)
 
             })
     }
 
     useEffect(() => {
-        axios.get(`${baseurl}/api/v1/post`,
+        axios.get(`${baseurl}/api/v1/post?page=0`,
             {
                 withCredentials: true
             })
@@ -63,7 +62,46 @@ function Dashboard() {
                 setPosts(response.data)
             })
             .catch(err => alert("Error in getting data"))
-    }, [toggleGetUser])
+    }, [])
+
+
+    useEffect(() => {
+        const socket = io("http://localhost:5000");
+        // to connect with locally running Socker.io server
+
+        socket.on('connect', function () {
+            console.log("connected to server")
+        });
+
+        socket.on('disconnect', function (message) {
+            console.log("disconnected from server: ", message);
+        });
+
+        socket.on('POSTS', function (data) {
+            console.log(data);
+            setPosts((prev) => [data, ...prev])
+        });
+
+        return () => {
+            socket.close();
+        };
+    }, []);
+
+    const loadMore = () => {
+        axios.get(`${baseurl}/api/v1/post?page=${posts.length}`,
+            {
+                withCredentials: true
+            })
+            .then((res) => {
+                console.log("res +++: ", res.data);
+                if (res.data?.length) {
+                    const newPosts = [...posts, ...res.data]
+                    setPosts(newPosts)
+                } else {
+                    setIsMore(false)
+                }
+            })
+    }
 
 
 
@@ -84,10 +122,8 @@ function Dashboard() {
             <div className="app-main">
                 <div className="post-main">
                     <form id="post-form" onSubmit={formik.handleSubmit}>
-
+                        
                         <h3 style={{ padding: "5%" }}> What's on Your Mind </h3>
-
-
                         <TextField
                             id="outlined-basic"
                             name="post"
@@ -113,7 +149,7 @@ function Dashboard() {
                 </div>
 
                 <div id="posts">
-                    {posts?.map(posts => (
+                    {posts?.map((posts, index) => (
                         // <div id="cont">
                         //     <h3 id="post-name">{posts?.name}</h3>
                         //     <hr />
@@ -125,7 +161,8 @@ function Dashboard() {
                         //     </p>
                         // </div>
                         <div className="postcard">
-                            <Postcard 
+                            <Postcard
+                                key={index}
                                 name={posts?.name}
                                 time={posts?.time}
                                 post={posts?.post}
@@ -134,6 +171,12 @@ function Dashboard() {
                     )
 
                     )}
+                {(isMore) ? <Button id="loadmorebtn" onClick={loadMore}> &#x2193; Load More</Button>
+                 : 
+                 <p id="nopost">No More Posts</p>
+                
+                }
+
                 </div>
             </div>
 

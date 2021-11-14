@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Splashscreen from './components/Splashscreen';
 import Profile from './components/Profile';
 import SearchAppBar from './components/Navbar/SearchAppBar';
+import MyPosts from './components/Dashboard/MyPosts';
 import axios from 'axios';
 import { baseurl } from './core';
 import { useEffect } from 'react';
@@ -17,8 +18,6 @@ import {
   Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-
 
 import { GlobalContext } from './context/Context';
 import { useContext } from "react";
@@ -99,6 +98,10 @@ function App() {
 
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+
+          <Route path="/myposts">
+            <MyPosts />
           </Route>
 
 
