@@ -296,14 +296,14 @@ io.on("connection", (socket) => {
     });
 });
 
-setInterval(() => {
+// setInterval(() => {
 
-    // to emit data to all connected client
-    // first param is topic name and second is json data
-    io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
-    console.log("emiting data to all client");
+//     // to emit data to all connected client
+//     // first param is topic name and second is json data
+//     io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
+//     console.log("emiting data to all client");
 
-}, 2000)
+// }, 2000)
 
 
 server.listen(PORT, function () {
