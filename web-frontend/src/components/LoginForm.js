@@ -3,6 +3,7 @@ import '../App.css';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useHistory } from 'react-router';
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
 import axios from 'axios';
@@ -11,7 +12,7 @@ import { GlobalContext } from '../context/Context';
 import { useContext } from "react";
 
 
-const validationSchema = yup.object({ 
+const validationSchema = yup.object({
   email: yup
     .string('Enter your email')
     .email('Enter a valid email')
@@ -29,7 +30,7 @@ const validationSchema = yup.object({
 
 function Loginform() {
 
-  // let history = useHistory();
+  let history = useHistory();
   let { state, dispatch } = useContext(GlobalContext);
 
 
@@ -42,9 +43,9 @@ function Loginform() {
       {
         email: values.email,
         password: values.password
-      },{
-        withCredentials: true
-      })
+      }, {
+      withCredentials: true
+    })
       .then(res => {
         console.log(res.data);
         alert('User Logined')
@@ -59,7 +60,7 @@ function Loginform() {
           })
         }
 
-        
+
       })
 
 
@@ -120,7 +121,11 @@ function Loginform() {
             <Button id="btn" variant="contained" color="success" type="submit">
               Login
             </Button>
+
+
           </form>
+          <a onClick={() => { history.push("/forget_password") }}>Forget password</a>
+
         </div>
       </div>
     </>

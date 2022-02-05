@@ -7,6 +7,7 @@ import Splashscreen from './components/Splashscreen';
 import Profile from './components/Profile';
 import SearchAppBar from './components/Navbar/SearchAppBar';
 import MyPosts from './components/Dashboard/MyPosts';
+import ForgetPassword from './components/Forgetpassword/Forgetpassword';
 import axios from 'axios';
 import { baseurl } from './core';
 import { useEffect } from 'react';
@@ -86,6 +87,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route path="/forget_password" component={ForgetPassword} />
           <Redirect to="/" />
         </Switch> : null
       }
