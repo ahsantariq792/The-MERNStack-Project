@@ -5,10 +5,13 @@ import path from "path";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import nodemailer from "nodemailer";
-// const { response } = require('express')
 import { response } from 'express';
 const __dirname = path.resolve();
-
+import dotenv from "dotenv"
+dotenv.config({path:'./config.env'})
+const DB=process.env.DATABASE;
+const EMAIL = process.env.EMAIL
+const PASSWORD = process.env.PASSWORD
 
 import {
     stringToHash,
@@ -41,7 +44,7 @@ app.get("/", (req, res, next) => {
 
 
 
-mongoose.connect("mongodb+srv://userpost:1234@userpost.amdns.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connect(DB)
 
 const UserSchema = new mongoose.Schema({
     name: String,
@@ -205,16 +208,16 @@ app.post('/api/v1/otp', (req, res, next) => {
                     // secure: true, // true for 465, false for other ports
                     service: 'Gmail',
                     auth: {
-                        user: 'tariqayyan500@gmail.com', // generated ethereal user
-                        pass: 'incorrect123@', // generated ethereal password
+                        user: EMAIL, // generated ethereal user
+                        pass: PASSWORD, // generated ethereal password
                     },
                 });
 
                 let options = {
-                    from: "tariqayyan500@gmail.com", // sender address
-                    to: "ahsantariq792@gmail.com", // list of receivers
+                    from: EMAIL, // sender address
+                    to: useremail, // list of receivers
                     subject: `Password Reset `, // Subject line
-                    text: `Hi ${useremail} ! You have requested for change password. Here is your OTP:  ${otp}`
+                    text: `Hi ${useremail} ! You have requested for change password. Here is your OTP: ${otp}`
                      
                 };
 
