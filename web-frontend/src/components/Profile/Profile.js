@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from "react"
-import { baseurl } from '../core';
+import { baseurl } from '../../core';
 // import { GlobalContext } from '../context/Context';
 // import { useContext } from "react";
-import Profileimage from '../images/profile.jpg'
-import './../App.css'
+import Profileimage from '../../images/profile.jpg'
+import './../../App.css'
 
 function Profile() {
 
@@ -27,18 +27,6 @@ function Profile() {
     return (
         <>
             <div className="profile">
-
-                {/* <h1 id="profileheader"><div class="text">
-                    <span>M</span>
-                    <span>Y</span>
-                    <span>P</span>
-                    <span>R</span>
-                    <span>O</span>
-                    <span>I</span>
-                    <span>L</span>
-                    <span>E</span>
-                </div></h1> */}
-
 
                 <h1 id="profileheader">My Profile</h1>
                 <img id="profilepic" src={Profileimage} alt="profilepic" />

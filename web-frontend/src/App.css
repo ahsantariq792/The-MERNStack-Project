@@ -1,29 +1,19 @@
-h3{
+/* Login Form Css */
+
+.form-heading{
   font-family: cursive;
   font-size: 32px;
-  margin: 0px !important;
+  margin: 10px !important;
 }
 
 
-
-.item{
-  text-decoration: none;
-  color: white;
-
+#forgetpasswordtext{
+  font-size: 16;
+  margin-top: 10px;
 }
 
 
-
-h2{
-  font-size: 40px;
-  position: relative;
-  top: 10%;
-  /* left: 20%; */
-  font-family: cursive;
-}
-
-
-form{
+.form{
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -45,6 +35,30 @@ form{
   overflow: hidden !important;
 }
 
+.app-main{
+  margin: 10% auto;
+  text-align: center;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin-top: 5%; 
+
+}
+
+
+.form .inputbox{
+  margin: 10px !important;
+  width: 80% !important;
+  position: relative;
+  left: 10%;
+
+}
+
+
+/* Dashboard CSS */
+
 .post-main{
   position: relative;
   left: 20%;
@@ -65,18 +79,6 @@ form{
   background-color: white !important;
 }
 
-.app-main{
-  margin: 10% auto;
-  text-align: center;
-  width: 100%;
-  overflow-x: hidden;
-  padding: 20px;
-  text-align: center;
-  border-radius: 20px;
-  margin-top: 5%; 
-
-}
-
 #posts{
   margin-top: 5%;
 }
@@ -88,21 +90,6 @@ form{
   margin-top: 4%;
   font-size: 100%;
 }
-
-form .inputbox{
-  margin: 10px !important;
-  width: 80% !important;
-  position: relative;
-  left: 10%;
-
-}
-
-#name{
-  color: grey;
-  font-weight: 400px;
-  text-transform: uppercase;
-}
-
 
 
 #cont{
@@ -171,6 +158,7 @@ p.buttonbox {
 }
 
 
+/* Navbar CSS */
 
 .nav-itms{
   text-decoration: none !important;
@@ -190,16 +178,6 @@ p.buttonbox {
 Link{
   text-decoration: none !important;
 
-}
-
-
-.dashbtn{
-  background-color: rgb(28, 238, 28);
-  border-radius: 8px;
-  padding: 10px;
-  color: white;
-  border: none;
-  outline: none;
 }
 
 
@@ -228,6 +206,8 @@ Link{
   height: 200px;
   margin-bottom: 2%;
 }
+
+
 
 
 /* post card css */
@@ -271,7 +251,7 @@ Link{
 }
 
 
-/* splashscreen css */
+/* splashscreen CSS */
 
 .splashscreen{
   width: 100%;
@@ -297,7 +277,7 @@ Link{
 
 
 
-
+/* Animation CSS */
 
 /* 
 

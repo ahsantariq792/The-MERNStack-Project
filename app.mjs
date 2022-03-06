@@ -8,8 +8,8 @@ import nodemailer from "nodemailer";
 import { response } from 'express';
 const __dirname = path.resolve();
 import dotenv from "dotenv"
-dotenv.config({path:'./config.env'})
-const DB=process.env.DATABASE;
+dotenv.config({ path: './config.env' })
+const DB = process.env.DATABASE;
 const EMAIL = process.env.EMAIL
 const PASSWORD = process.env.PASSWORD
 
@@ -91,38 +91,31 @@ app.post('/api/v1/signup', (req, res) => {
 
     else {
         User.findOne({ email: req.body.email }, (err, user) => {
-
             if (user) {
-                res.send("user already exist")
-            }
-            else {
-                User.findOne({ email: req.body.email }, (err, user) => {
-                    if (user) {
-                        res.send("user already exist");
-                    } else {
-                        console.log(req.body)
+                res.send("user already exist");
+            } else {
+                console.log(req.body)
 
-                        stringToHash(req.body.password).then(passwordHash => {
-                            console.log("hash: ", passwordHash);
+                stringToHash(req.body.password).then(passwordHash => {
+                    console.log("hash: ", passwordHash);
 
-                            let newUser = new User({
-                                name: req.body.name,
-                                email: req.body.email,
-                                password: passwordHash,
-                                phone: req.body.phone,
-                            })
-                            newUser.save(() => {
-                                console.log("data saved")
-                                res.send('signup success')
-                            })
-                        })
-                    }
+                    let newUser = new User({
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: passwordHash,
+                        phone: req.body.phone,
+                    })
+                    newUser.save(() => {
+                        console.log("data saved")
+                        res.send('signup success')
+                    })
                 })
-
             }
         })
+
     }
 })
+
 
 app.post('/api/v1/login', (req, res) => {
 
@@ -218,7 +211,7 @@ app.post('/api/v1/otp', (req, res, next) => {
                     to: useremail, // list of receivers
                     subject: `Password Reset `, // Subject line
                     text: `Hi ${useremail} ! You have requested for change password. Here is your OTP: ${otp}`
-                     
+
                 };
 
                 transporter.sendMail(options, function (err, info) {
@@ -228,7 +221,7 @@ app.post('/api/v1/otp', (req, res, next) => {
                     }
                     console.log(info, response)
                     response.send('email sent')
-            
+
                 })
 
 

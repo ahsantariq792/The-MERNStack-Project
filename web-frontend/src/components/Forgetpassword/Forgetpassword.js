@@ -104,8 +104,9 @@ function ForgetPassword() {
             {(step === 1) ?
                 <div className="app-main">
                     <div className="main">
-                        <h1>Forget Password</h1>
-                        <form onSubmit={formik.handleSubmit}>
+                        <form className='form' onSubmit={formik.handleSubmit}>
+                            <h3 class="form-heading">Forget Password</h3>
+
                             <Stack spacing={2}>
 
                                 <TextField
@@ -133,7 +134,7 @@ function ForgetPassword() {
 
                 <div className="app-main">
                     <div className="main">
-                        <form onSubmit={formik_step2.handleSubmit}>
+                        <form className='form' onSubmit={formik_step2.handleSubmit}>
                             <Stack spacing={2}>
 
                                 <TextField

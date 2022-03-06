@@ -1,10 +1,10 @@
 import './App.css';
-import Signup from './components/Signupform';
-import Login from './components/LoginForm';
+import Signup from './components/Form/Signupform';
+import Login from './components/Form/LoginForm';
 import DashNavbar from './components/Navbar/DashNavbar';
 import Dashboard from './components/Dashboard/Dashboard';
-import Splashscreen from './components/Splashscreen';
-import Profile from './components/Profile';
+import Splashscreen from './components/SplashScreen/Splashscreen';
+import Profile from './components/Profile/Profile';
 import SearchAppBar from './components/Navbar/SearchAppBar';
 import MyPosts from './components/Dashboard/MyPosts';
 import ForgetPassword from './components/Forgetpassword/Forgetpassword';
@@ -74,11 +74,7 @@ function App() {
       {(state.user === undefined) ?
         <Switch>
           <Route exact path="/">
-          
-            
               <Splashscreen />
-          
-            
           </Route>
         </Switch>
         : null}

@@ -1,11 +1,11 @@
-import '../App.css';
+import '../../App.css';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
 import axios from 'axios';
-import { baseurl } from '../core';
+import { baseurl } from '../../core';
 
 const submit = (values,{ resetForm }) => {
   console.log("values", values)
@@ -76,9 +76,9 @@ function Signupform() {
     <>
       <div className="app-main"> 
         <div className="main">
-          <form onSubmit={formik.handleSubmit}>
+          <form className='form' onSubmit={formik.handleSubmit}>
 
-            <h3> Sign up Form </h3>
+            <h3 class="form-heading"> Sign up Form </h3>
 
             <TextField
               id="outlined-basic"

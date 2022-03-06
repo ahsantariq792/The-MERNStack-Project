@@ -130,7 +130,7 @@ function Dashboard() {
                             label="post"
                             type="post"
                             className="box"
-                            id="postbox"
+                            // id="postbox"
 
                             value={formik.values.caption}
                             onChange={formik.handleChange}
@@ -150,16 +150,6 @@ function Dashboard() {
 
                 <div id="posts">
                     {posts?.map((posts, index) => (
-                        // <div id="cont">
-                        //     <h3 id="post-name">{posts?.name}</h3>
-                        //     <hr />
-                        //     <p id="post-item">{posts?.post}</p>
-                        //     <p className="buttonbox">
-                        //         <button className="btn">Like</button>
-                        //         <button className="btn">Comment</button>
-                        //         <button className="btn">Share</button>
-                        //     </p>
-                        // </div>
                         <div className="postcard">
                             <Postcard
                                 key={index}

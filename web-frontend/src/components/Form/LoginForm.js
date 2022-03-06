@@ -1,4 +1,4 @@
-import '../App.css';
+import '../../App.css';
 // import {useHistory} from "react-router-dom";
 import React from 'react';
 import { useFormik } from 'formik';
@@ -7,8 +7,8 @@ import { useHistory } from 'react-router';
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
 import axios from 'axios';
-import { baseurl } from '../core';
-import { GlobalContext } from '../context/Context';
+import { baseurl } from '../../core';
+import { GlobalContext } from '../../context/Context';
 import { useContext } from "react";
 
 
@@ -83,9 +83,9 @@ function Loginform() {
     <>
       <div className="app-main">
         <div className="main">
-          <form onSubmit={formik.handleSubmit}>
+          <form className='form' onSubmit={formik.handleSubmit}>
 
-            <h3> Login Form </h3>
+            <h3 class="form-heading"> Login Form </h3>
 
             <TextField
               id="outlined-basic"
@@ -121,10 +121,11 @@ function Loginform() {
             <Button id="btn" variant="contained" color="success" type="submit">
               Login
             </Button>
-
+            <Button id="forgetpasswordtext" onClick={() => { history.push("/forget_password") }}>
+              Forget password
+            </Button>
 
           </form>
-          <a onClick={() => { history.push("/forget_password") }}>Forget password</a>
 
         </div>
       </div>
